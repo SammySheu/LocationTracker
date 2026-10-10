@@ -1,0 +1,48 @@
+# Build output and tool caches for a .NET MAUI project, plus macOS and IDE noise.
+#
+# Purpose: keep compiled artefacts out of the repository. bin/ and obj/ are the critical
+# entries — they contain the APK, the .app bundle and the full NuGet restore graph, run to
+# hundreds of megabytes, and are entirely reproducible with `dotnet build`.
+
+# .NET build output
+bin/
+obj/
+*.binlog
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Publish output
+publish/
+*.app/
+*.apk
+*.aab
+*.ipa
+
+# Signing material — must never be committed
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.mobileprovision
+*.cer
+
+# Rider / Visual Studio / VS Code
+.idea/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+
+# Test and coverage output
+TestResults/
+coverage*.xml
+*.coverage
+
+# macOS
+.DS_Store
