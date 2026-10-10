@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AndroidManifest.xml — Location Heat Map
+
+    Declares the permissions the app needs and the Google Play services metadata the
+    .NET MAUI Map control requires in order to render Google Maps on Android.
+
+    Note that MAUI merges this file with entries it generates from the .csproj at build time
+    (package name, label, icon, minimum/target SDK), so values set there are not repeated here.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<application android:allowBackup="true"
+	             android:icon="@mipmap/appicon"
+	             android:roundIcon="@mipmap/appicon_round"
+	             android:supportsRtl="true">
+
+		<!--
+		    Google Maps API key.
+
+		    The Map control authenticates to the Maps SDK for Android with this key. Without a
+		    valid one the control still loads but renders an empty grey grid with no tiles.
+
+		    REPLACE THE PLACEHOLDER BELOW with your own key before building for Android - see
+		    Step 6 of SETUP.md for how to create one. The key is left as a placeholder in
+		    source control on purpose: a value inlined here is compiled into the APK and would
+		    be published along with the repository, so it must be restricted to this app's
+		    package name and signing certificate in the Google Cloud console.
+
+		    "com.google.android.geo.API_KEY" is the current metadata name and authenticates
+		    against all of the Google Maps APIs on Android. The older
+		    "com.google.android.maps.v2.API_KEY" name still works but only covers Maps API v2;
+		    an app may declare only one of the two.
+		-->
+		<meta-data android:name="com.google.android.geo.API_KEY"
+		           android:value="YOUR_GOOGLE_MAPS_API_KEY" />
+
+		<!--
+		    Tells the Play services client library which version it was compiled against. The
+		    @integer resource is supplied by the Xamarin.GooglePlayServices.Maps package that
+		    Microsoft.Maui.Controls.Maps pulls in, so the value stays in step automatically.
+		-->
+		<meta-data android:name="com.google.android.gms.version"
+		           android:value="@integer/google_play_services_version" />
+
+	</application>
+
+	<!--
+	    Network access. Required for the Map control to download map tiles, and for the fused
+	    location provider to resolve a position from Wi-Fi and cell towers.
+	-->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+	<!--
+	    Location access.
+
+	    ACCESS_COARSE_LOCATION permits a position derived from Wi-Fi and mobile networks;
+	    ACCESS_FINE_LOCATION additionally permits GPS, which is what gives the heat map
+	    resolution fine enough to distinguish one side of a street from the other. Both are
+	    declared because from Android 12 the user may grant only the coarse one, and the app
+	    should keep working (less precisely) in that case.
+
+	    These are runtime permissions: declaring them here only makes them requestable.
+	    LocationTrackingService.HasLocationPermissionAsync does the actual asking.
+
+	    There is deliberately no ACCESS_BACKGROUND_LOCATION or FOREGROUND_SERVICE_LOCATION
+	    entry - tracking is foreground-only and stops when the page is left.
+	-->
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+	<!--
+	    GPS hardware is preferred but not required, so the app remains installable on devices
+	    that locate themselves by network only.
+	-->
+	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
+
+</manifest>

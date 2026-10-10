@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="LocationHeatMap.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:LocationHeatMap.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+    <!--
+        A single-page app, so the flyout is disabled and the one route is shown directly.
+        The navigation bar title comes from MainView's own Title property ("MainView"), which
+        is what the reference layout shows.
+    -->
+    <ShellContent
+        ContentTemplate="{DataTemplate views:MainView}"
+        Route="MainView" />
+
+</Shell>
